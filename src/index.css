@@ -1,1 +1,182 @@
 @import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Karla", "Trebuchet MS", Verdana, sans-serif;
+
+  --color-roast-950: #140d08;
+  --color-roast-900: #1c130c;
+  --color-roast-850: #241911;
+  --color-roast-800: #2e2015;
+  --color-roast-700: #402d1c;
+  --color-roast-600: #57402a;
+  --color-roast-500: #75593a;
+
+  --color-cream-100: #f8f0de;
+  --color-cream-200: #f0e3cb;
+  --color-cream-300: #e3ceab;
+  --color-cream-400: #c9ae87;
+  --color-cream-500: #ac8f69;
+  --color-cream-600: #8d7252;
+
+  --color-ember-300: #f6c98d;
+  --color-ember-400: #eeac60;
+  --color-ember-500: #e29240;
+  --color-ember-600: #c1732a;
+  --color-ember-700: #985820;
+
+  --color-moss-300: #c6cfa0;
+  --color-moss-400: #a9b479;
+  --color-moss-500: #8c9a5c;
+
+  --color-cherry-400: #d16a55;
+  --color-cherry-500: #b64f3c;
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-pop: pop 0.45s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+  --animate-fade: fade 0.3s ease-out both;
+  --animate-rise: rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+  --animate-draw: draw 2.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
+  --animate-drift: drift 16s ease-in-out infinite alternate;
+  --animate-steam-a: steam 3.4s ease-in-out infinite;
+  --animate-steam-b: steam 3.4s ease-in-out 1.1s infinite;
+  --animate-steam-c: steam 3.4s ease-in-out 2.2s infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes pop {
+  from {
+    transform: scale(0.55);
+    opacity: 0.4;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(169, 180, 121, 0.55);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 0 6px rgba(169, 180, 121, 0);
+  }
+}
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes drift {
+  from {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  to {
+    transform: translate(14px, -26px) rotate(40deg);
+  }
+}
+@keyframes steam {
+  0% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(-22px) scaleX(1.35);
+    opacity: 0;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-roast-950);
+    color: var(--color-cream-200);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  button {
+    cursor: pointer;
+  }
+  ::selection {
+    background: var(--color-ember-500);
+    color: var(--color-roast-950);
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-roast-950);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-roast-700);
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-roast-600);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ember-500);
+    outline-offset: 2px;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Scroll-reveal primitive (driven by the Reveal component) */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.75s ease,
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Film-grain overlay for a roasted, tactile feel */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+}
